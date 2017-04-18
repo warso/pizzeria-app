@@ -4,6 +4,9 @@ import java.util.ArrayList;
 import java.util.Locale;
 import java.util.Scanner;
 
+import fr.pizzeria.dao.DaoFactory;
+import fr.pizzeria.dao.DaoFichierFactory;
+import fr.pizzeria.dao.DaoMemoireFactory;
 import fr.pizzeria.dao.IPizzaDao;
 import fr.pizzeria.dao.PizzaDaoImp;
 import fr.pizzeria.exception.DeletePizzaException;
@@ -19,12 +22,14 @@ import fr.pizzeria.model.Pizza;
 public class PizzeriaAdminConsoleApp {
 
 	public static void main(String[] args) {
-		// TODO Auto-generated method stub
+		
+		DaoFactory daoFact = new DaoMemoireFactory();
+		List<Pizza> tableauPizza = daoFact.getPizzaDao().findAllPizzas();
 		
 		
 //		Pizza[] pizza= new Pizza[50];
 //		
-//		pizza[0] = new Pizza(0, "PEP", "Pépéroni", 12.50);
+//		pizza[0] = new Pizza(0, "PEP", "PÃ©pÃ©roni", 12.50);
 //		pizza[1] = new Pizza(1, "MAR", "Margherita", 14.00);
 //		pizza[2] = new Pizza(2, "REIN", "La Reine", 11.50);
 //		pizza[3] = new Pizza(3, "FRO", "La 4 Fromage", 12.00);
@@ -34,26 +39,18 @@ public class PizzeriaAdminConsoleApp {
 //		pizza[7] = new Pizza(7, "IND", "L'Indienne", 14.00);
 		
 		
-		List tableauPizza = new ArrayList();
-		Pizza pizza1 = new Pizza(0,"PEP","Pépéroni",12.50, CategoriePizza.valueOf("VIANDE"));
-		Pizza pizza2 = new Pizza(1, "MAR", "Margherita", 14.00, CategoriePizza.valueOf("SANS_VIANDE"));
-		Pizza pizza3 = new Pizza(2, "REIN", "La Reine", 11.50, CategoriePizza.valueOf("VIANDE"));
-		tableauPizza.add(pizza1);
-		tableauPizza.add(pizza2);
-		tableauPizza.add(pizza3);
-		
-		
 		IPizzaDao pizzaDao = new PizzaDaoImp(tableauPizza);
 		
-		int choixMenu = 1;
+		int choixMenu = 0;
 		PizzaDaoImp.nbrePizza = 8;
+	
 		
 		while (choixMenu != 99) { // Valable tant qu'on ne sort pas
 			
 			System.out.println("*****Pizzeria Administration*****");
 			System.out.println("1. Lister les pizzas");
 			System.out.println("2. Ajouter une nouvelle pizza");
-			System.out.println("3. Mettre à jour une pizza");
+			System.out.println("3. Mettre Ã  jour une pizza");
 			System.out.println("4. Supprimer une pizza");
 			System.out.println("99. Sortir");
 			Scanner questionUser = new Scanner(System.in);
@@ -75,7 +72,6 @@ public class PizzeriaAdminConsoleApp {
 				try {
 					ajout.execute();
 				} catch (SavePizzaException e) {
-					// TODO Auto-generated catch block
 					System.out.println(e.getMessage());
 				}
 			}
@@ -102,7 +98,6 @@ public class PizzeriaAdminConsoleApp {
 				try {
 					supp.execute();
 				} catch (DeletePizzaException e) {
-					// TODO Auto-generated catch block
 					System.out.println(e.getMessage());
 				}
 			}

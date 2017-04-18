@@ -1,8 +1,10 @@
 package fr.pizzeria.dao;
 
+import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
+import fr.pizzeria.model.CategoriePizza;
 import fr.pizzeria.model.Pizza;
 
 public class PizzaDaoImp implements IPizzaDao {
@@ -15,6 +17,19 @@ public class PizzaDaoImp implements IPizzaDao {
 		super();
 		this.pizzaTab = pizzaTab;
 	}
+	
+	public PizzaDaoImp(){
+		
+		List tableauPizza = new ArrayList();
+		Pizza pizza1 = new Pizza(0, "PEP", "Pépéroni", 12.50, CategoriePizza.valueOf("VIANDE"));
+		Pizza pizza2 = new Pizza(1, "MAR", "Margherita", 14.00, CategoriePizza.valueOf("SANS_VIANDE"));
+		Pizza pizza3 = new Pizza(2, "REIN", "La Reine", 11.50, CategoriePizza.valueOf("VIANDE"));
+		tableauPizza.add(pizza1);
+		tableauPizza.add(pizza2);
+		tableauPizza.add(pizza3);
+		
+		pizzaTab=tableauPizza;
+	}
 
 	@Override
 	public List<Pizza> findAllPizzas() {
@@ -23,8 +38,20 @@ public class PizzaDaoImp implements IPizzaDao {
 			Pizza pizza = iterator.next();
 			System.out.println(pizza.getCode() + "->" + " " + pizza.getNom() + " " + "(" + pizza.getPrix() + ")" + " " + pizza.cat);
 		}
+			return pizzaTab;
+	}
+	
+	
+	@Override
+	public Pizza findPizzaById(int id) {
 		
-		return pizzaTab;
+		return null;
+	}
+
+	@Override
+	public Pizza findPizzaByCode(String code) {
+		
+		return null;
 	}
 
 	@Override
@@ -65,6 +92,8 @@ public class PizzaDaoImp implements IPizzaDao {
 		pizzaTab.remove(pizza);
 		return false;
 	}
+
+
 	
 	
 	

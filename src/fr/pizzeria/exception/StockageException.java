@@ -1,10 +1,25 @@
 package fr.pizzeria.exception;
 
-import java.io.IOException;
 
-public class StockageException extends Exception {
+public class StockageException extends RuntimeException {
 
-	public StockageException(String message){
-		super(message);
+	public StockageException() {
+		super();
 	}
+
+	public StockageException(String message, Throwable cause) {
+		super(message, cause);
+		
+	}
+
+	public StockageException(String message) {
+		super(message);
+	
+	}
+
+	public StockageException(Throwable cause) {
+		super(cause);
+		
+	}
+
 }
