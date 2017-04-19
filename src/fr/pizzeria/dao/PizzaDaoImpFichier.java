@@ -1,5 +1,8 @@
 package fr.pizzeria.dao;
 
+import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
@@ -39,7 +42,7 @@ public class PizzaDaoImpFichier implements IPizzaDao {
 												.orElseThrow(() -> new StockageException("fichier vide"))
 												.split(";");
 					
-					return new Pizza(0, code, valueTab[0], Double.valueOf(valueTab[1]),  CategoriePizza.valueOf(valueTab[2]));
+					return new Pizza(0, code, valueTab[0], Double.valueOf(valueTab[1]), CategoriePizza.valueOf(valueTab[2]));
 					
 				} catch (IOException e) {
 					throw new StockageException(e);
@@ -66,6 +69,19 @@ public class PizzaDaoImpFichier implements IPizzaDao {
 	
 	@Override
 	public boolean saveNewPizza(Pizza pizza) throws SavePizzaException {
+		try {
+			BufferedWriter writer = new BufferedWriter(new FileWriter(new File(pizza.getCode()+".txt")));
+			
+			// normalement si le fichier n'existe pas, il est crée à la racine du projet
+			writer.write(dataDir);
+
+			writer.close();
+			}
+			catch (IOException e)
+			{
+			e.printStackTrace();
+			}
+		
 		
 		return false;
 	}
@@ -78,6 +94,7 @@ public class PizzaDaoImpFichier implements IPizzaDao {
 
 	@Override
 	public boolean deletePizza(String code) throws DeletePizzaException {
+	
 		
 		return false;
 	}

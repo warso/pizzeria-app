@@ -23,7 +23,7 @@ public class PizzeriaAdminConsoleApp {
 
 	public static void main(String[] args) {
 		
-		DaoFactory daoFact = new DaoMemoireFactory();
+		DaoFactory daoFact = new DaoFichierFactory();
 		List<Pizza> tableauPizza = daoFact.getPizzaDao().findAllPizzas();
 		
 		
