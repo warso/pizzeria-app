@@ -93,7 +93,5 @@ http://maven.apache.org/xsd/maven-4.0.0.xsd">
 			<artifactId>jfiglet</artifactId>
 			<version>0.0.3</version>
 		</dependency>
-
-
 	</dependencies>
 </project>
