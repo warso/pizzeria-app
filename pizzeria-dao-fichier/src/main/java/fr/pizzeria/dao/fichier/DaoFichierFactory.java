@@ -5,7 +5,7 @@ import fr.pizzeria.dao.IPizzaDao;
 
 public class DaoFichierFactory implements DaoFactory {
 
-	private static final String DATA_DIR = "C:/Users/ETY/Documents/workspace-sts-3.8.3.RELEASE/pizzeria-console- objet/data";
+	private static final String DATA_DIR = "data";
 
 	public static String getDataDir() {
 		return DATA_DIR;
