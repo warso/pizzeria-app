@@ -6,7 +6,7 @@ import fr.pizzeria.dao.IPizzaDao;
 public class DaoMemoireFactory implements DaoFactory {
 
 	
-	private IPizzaDao pizzaDao = null;
+	private IPizzaDao pizzaDao = new PizzaDaoImp();
 	
 	@Override
 	public IPizzaDao getPizzaDao() {

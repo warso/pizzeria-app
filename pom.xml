@@ -6,63 +6,52 @@
 	<version>1.0.0</version>
 	<packaging>pom</packaging>
 
+	<name>Pizzeria - App</name>
+
+	<properties>
+		<java.version>1.8</java.version>
+		<junit.version>4.2</junit.version>
+		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+		<jfiglet.version>0.0.3</jfiglet.version>
+	</properties>
+
 	<build>
+
+		<resources>
+			<resource>
+				<directory>src/main/resources</directory>
+				<filtering>true</filtering>
+			</resource>
+		</resources>
+
 		<pluginManagement>
 			<plugins>
 				<plugin>
 					<artifactId>maven-compiler-plugin</artifactId>
-					<version>3.5.1</version>
 					<configuration>
 						<source>${java.version}</source>
 						<target>${java.version}</target>
 					</configuration>
 				</plugin>
-
-				<plugin>
-					<artifactId>maven-jar-plugin</artifactId>
-					<version>3.0.2</version>
-					<configuration>
-						<archive>
-							<manifest>
-								<mainClass>fr.pizzeria.console.PizzeriaAdminConsoleApp</mainClass>
-							</manifest>
-						</archive>
-					</configuration>
-				</plugin>
-
-				<plugin>
-					<groupId>org.apache.maven.plugins</groupId>
-					<artifactId>maven-shade-plugin</artifactId>
-					<version>3.0.0</version>
-					<executions>
-						<execution>
-							<phase>package</phase>
-							<goals>
-								<goal>shade</goal>
-							</goals>
-						</execution>
-					</executions>
-				</plugin>
-
-				<plugin>
-					<artifactId>maven-source-plugin</artifactId>
-					<version>3.0.1</version>
-					<configuration>
-						<outputDirectory>/absolute/path/to/the/output/directory</outputDirectory>
-						<finalName>filename-of-generated-jar-file</finalName>
-						<attach>false</attach>
-					</configuration>
-				</plugin>
 			</plugins>
+
 		</pluginManagement>
+		<plugins>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-source-plugin</artifactId>
+				<version>2.1.2</version>
+				<executions>
+					<execution>
+						<id>attach-sources</id>
+						<goals>
+							<goal>jar-no-fork</goal>
+						</goals>
+					</execution>
+				</executions>
+			</plugin>
+		</plugins>
 	</build>
-	<modules>
-		<module>pizzeria-console</module>
-		<module>pizzeria-dao-api</module>
-		<module>pizzeria-dao-memoire</module>
-		<module>pizzeria-dao-fichier</module>
-		<module>pizzeria-domain</module>
-	</modules>
 
 	<dependencyManagement>
 		<dependencies>
@@ -72,12 +61,45 @@
 				<version>${junit.version}</version>
 				<scope>test</scope>
 			</dependency>
+
+			<dependency>
+				<groupId>${project.groupId}</groupId>
+				<artifactId>pizzeria-dao-api</artifactId>
+				<version>${project.version}</version>
+			</dependency>
+
+			<dependency>
+				<groupId>${project.groupId}</groupId>
+				<artifactId>pizzeria-dao-memoire</artifactId>
+				<version>${project.version}</version>
+			</dependency>
+
+			<dependency>
+				<groupId>${project.groupId}</groupId>
+				<artifactId>pizzeria-dao-fichier</artifactId>
+				<version>${project.version}</version>
+			</dependency>
+
+			<dependency>
+				<groupId>${project.groupId}</groupId>
+				<artifactId>pizzeria-domain</artifactId>
+				<version>${project.version}</version>
+			</dependency>
+
+			<dependency>
+				<groupId>com.github.lalyos</groupId>
+				<artifactId>jfiglet</artifactId>
+				<version>${jfiglet.version}</version>
+			</dependency>
+
 		</dependencies>
 	</dependencyManagement>
 
-	<properties>
-		<java.version>1.8</java.version>
-		<junit.version>4.12</junit.version>
-		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-	</properties>
+	<modules>
+		<module>pizzeria-console</module>
+		<module>pizzeria-dao-api</module>
+		<module>pizzeria-dao-memoire</module>
+		<module>pizzeria-dao-fichier</module>
+		<module>pizzeria-domain</module>
+	</modules>
 </project>

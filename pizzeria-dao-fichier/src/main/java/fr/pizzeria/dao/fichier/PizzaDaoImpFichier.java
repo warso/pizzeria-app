@@ -31,32 +31,96 @@ public class PizzaDaoImpFichier implements IPizzaDao {
 	@Override
 	public List<Pizza> findAllPizzas() {
 
-		try (Stream<Path> list = Files.list(Paths.get(DaoFichierFactory.getDataDir()))){     //Recupère la liste des fichier present 
-            																				// dans le repertoire data/pizzas
+		try (Stream<Path> list = Files.list(Paths.get(DaoFichierFactory.getDataDir()))) { // Recupère
+																							// la
+																							// liste
+																							// des
+																							// fichier
+																							// present
+																							// dans
+																							// le
+																							// repertoire
+																							// data/pizzas
 
-		return list.map(path->{ //map le path en pizzas 
-		String code=path.toFile().getName().replaceAll(".txt", ""); //Recupère le code de pizza avec le nom du 
-																	//fichier en enlevant le .txt
-		
-		try(Stream<String> lines = Files.lines(path);){ //Cette notation permet de fermer le stream à la fin du bloc try et de liberer la ressource
-		
-			Optional<String> premiereLigneDuFichier=lines.findFirst();    //Recupère la première ligne du fichier, 
-																			//on utilise un Optional pour eviter l'exception
-																			//si le fichier est vide
-																			
-		String premiereLigne=premiereLigneDuFichier.orElseThrow(()->new StockageException("fichier vide"));    //Permet de gèrer l'exception si le fichier est vide
-		
-		String[] valueTab=premiereLigne.split(";");   //Recupère les éléments de la ligne avec pour séparateur un ";"
-		
-		return new Pizza(0,code,valueTab[0],Double.valueOf(valueTab[1]),CategoriePizza.valueOf(valueTab[2])); //Retourne la pizza créer
-		
-		}catch(IOException e){
-			throw new StockageException(e);
-		}
-		
-		}).collect(Collectors.toList()); //Collecte toutes les pizzas
-		
-		}catch(IOException e){
+			return list.map(path -> { // map le path en pizzas
+				String code = path.toFile().getName().replaceAll(".txt", ""); // Recupère
+																				// le
+																				// code
+																				// de
+																				// pizza
+																				// avec
+																				// le
+																				// nom
+																				// du
+																				// fichier
+																				// en
+																				// enlevant
+																				// le
+																				// .txt
+
+				try (Stream<String> lines = Files.lines(path);) { // Cette
+																	// notation
+																	// permet de
+																	// fermer le
+																	// stream à
+																	// la fin du
+																	// bloc try
+																	// et de
+																	// liberer
+																	// la
+																	// ressource
+
+					Optional<String> premiereLigneDuFichier = lines.findFirst(); // Recupère
+																					// la
+																					// première
+																					// ligne
+																					// du
+																					// fichier,
+																					// on
+																					// utilise
+																					// un
+																					// Optional
+																					// pour
+																					// eviter
+																					// l'exception
+																					// si
+																					// le
+																					// fichier
+																					// est
+																					// vide
+
+					String premiereLigne = premiereLigneDuFichier
+							.orElseThrow(() -> new StockageException("fichier vide")); // Permet
+																						// de
+																						// gèrer
+																						// l'exception
+																						// si
+																						// le
+																						// fichier
+																						// est
+																						// vide
+
+					String[] valueTab = premiereLigne.split(";"); // Recupère
+																	// les
+																	// éléments
+																	// de la
+																	// ligne
+																	// avec pour
+																	// séparateur
+																	// un ";"
+
+					return new Pizza(0, code, valueTab[0], Double.valueOf(valueTab[1]),
+							CategoriePizza.valueOf(valueTab[2])); // Retourne la
+																	// pizza
+																	// créer
+
+				} catch (IOException e) {
+					throw new StockageException(e);
+				}
+
+			}).collect(Collectors.toList()); // Collecte toutes les pizzas
+
+		} catch (IOException e) {
 			throw new StockageException(e);
 		}
 	}
@@ -100,7 +164,7 @@ public class PizzaDaoImpFichier implements IPizzaDao {
 	public boolean deletePizza(String code) throws DeletePizzaException {
 		try {
 
-			Files.delete(Paths.get(DaoFichierFactory.getDataDir() +"/"+ code + ".txt"));
+			Files.delete(Paths.get(DaoFichierFactory.getDataDir() + "/" + code + ".txt"));
 
 		} catch (IOException e) {
 			throw new StockageException(e);

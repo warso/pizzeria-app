@@ -2,6 +2,7 @@ package fr.pizzeria.ihm;
 
 import java.util.List;
 import java.util.Locale;
+import java.util.ResourceBundle;
 import java.util.Scanner;
 
 import com.github.lalyos.jfiglet.FigletFont;
@@ -20,28 +21,17 @@ import fr.pizzeria.model.Pizza;
 
 public class PizzeriaAdminConsole {
 
-	public static void main(String[] args) {
+	public static void main(String[] args) throws ClassNotFoundException, InstantiationException, IllegalAccessException {
 
-		DaoFactory daoFact = new DaoFichierFactory();
-		IPizzaDao pizzaDao = daoFact.getPizzaDao();
+		ResourceBundle bundle = ResourceBundle.getBundle("application");
+		String value = bundle.getString("dao.impl");
 		
-		List<Pizza> tableauPizza = daoFact.getPizzaDao().findAllPizzas();
-
-		// Pizza[] pizza= new Pizza[50];
-		//
-		// pizza[0] = new Pizza(0, "PEP", "Pépéroni", 12.50);
-		// pizza[1] = new Pizza(1, "MAR", "Margherita", 14.00);
-		// pizza[2] = new Pizza(2, "REIN", "La Reine", 11.50);
-		// pizza[3] = new Pizza(3, "FRO", "La 4 Fromage", 12.00);
-		// pizza[4] = new Pizza(4, "CAN", "La Cannibale", 12.50);
-		// pizza[5] = new Pizza(5, "SAV", "La Savoyarde", 13.00);
-		// pizza[6] = new Pizza(6, "ORI", "L'Orientale", 13.50);
-		// pizza[7] = new Pizza(7, "IND", "L'Indienne", 14.00);
-
+		String uneClasse = value;
+		Class<?> maClasse = Class.forName(uneClasse);
 		
+		DaoFactory unObjet = (DaoFactory) maClasse.newInstance();
 
 		int choixMenu = 0;
-		//PizzaDaoImp.nbrePizza = 8;
 
 		while (choixMenu != 99) { // Valable tant qu'on ne sort pas
 
@@ -60,7 +50,7 @@ public class PizzeriaAdminConsole {
 			/** Lister les pizzas */
 
 			if (choixMenu == 1) {
-				ListerPizzaOptionMenu liste = new ListerPizzaOptionMenu(pizzaDao);
+				ListerPizzaOptionMenu liste = new ListerPizzaOptionMenu(unObjet);
 				liste.execute();
 			}
 
@@ -68,7 +58,7 @@ public class PizzeriaAdminConsole {
 
 			if (choixMenu == 2) {
 
-				NouvellePizzaOptionMenu ajout = new NouvellePizzaOptionMenu(pizzaDao);
+				NouvellePizzaOptionMenu ajout = new NouvellePizzaOptionMenu(unObjet);
 				try {
 					ajout.execute();
 				} catch (SavePizzaException e) {
@@ -80,27 +70,25 @@ public class PizzeriaAdminConsole {
 
 			if (choixMenu == 3) {
 
-				ModifierPizzaOptionMenu modif = new ModifierPizzaOptionMenu(pizzaDao);
+				ModifierPizzaOptionMenu modif = new ModifierPizzaOptionMenu(unObjet);
 				try {
 					modif.execute();
 				} catch (UpdatePizzaException e) {
 					System.out.println(e.getMessage());
 				}
-
 			}
 
 			/** Suppression de pizza */
 
 			if (choixMenu == 4) {
 
-				SupprimerPizzaOptionMenu supp = new SupprimerPizzaOptionMenu(pizzaDao);
+				SupprimerPizzaOptionMenu supp = new SupprimerPizzaOptionMenu(unObjet);
 				try {
 					supp.execute();
 				} catch (DeletePizzaException e) {
 					System.out.println(e.getMessage());
 				}
 			}
-
 		}
 		if (choixMenu == 99) {
 			System.out.println("Au revoir \u1F614");

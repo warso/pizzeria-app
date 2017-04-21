@@ -35,11 +35,7 @@ public class PizzaDaoImp implements IPizzaDao {
 
 	@Override
 	public List<Pizza> findAllPizzas() {
-		Iterator<Pizza> iterator = pizzaTab.iterator();
-		while (iterator.hasNext()) {
-			Pizza pizza = iterator.next();
-			System.out.println(pizza.getCode() + "->" + " " + pizza.getNom() + " " + "(" + pizza.getPrix() + ")" + " " + pizza.cat);
-		}
+
 			return pizzaTab;
 	}
 	

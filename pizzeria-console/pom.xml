@@ -8,11 +8,79 @@
 		<artifactId>pizzeria-app-parent</artifactId>
 		<version>1.0.0</version>
 	</parent>
-	<groupId>pizzeria-app</groupId>
+
 	<artifactId>pizzeria-console</artifactId>
-	<version>1.0.0</version>
-	<name>pizzeria-console</name>
-	<url>http://maven.apache.org</url>
+
+	<name>Pizzeria - Console</name>
+
+	<profiles>
+
+		<profile>
+			<id>dev</id>
+			<activation>
+				<activeByDefault>true</activeByDefault>
+			</activation>
+			<properties>
+				<dao>fr.pizzeria.dao.memoire.PizzaDaoImp</dao>
+			</properties>
+
+			<dependencies>
+				<dependency>
+					<groupId>pizzeria-app</groupId>
+					<artifactId>pizzeria-dao-memoire</artifactId>
+					<scope>runtime</scope>
+				</dependency>
+			</dependencies>
+		</profile>
+
+		<profile>
+			<id>prod</id>
+			<properties>
+				<dao>fr.pizzeria.dao.fichier.DaoFichierFactory</dao>
+			</properties>
+			<dependencies>
+				<dependency>
+					<groupId>pizzeria-app</groupId>
+					<artifactId>pizzeria-dao-fichier</artifactId>
+					<scope>runtime</scope>
+				</dependency>
+			</dependencies>
+		</profile>
+
+	</profiles>
+
+	<build>
+		<pluginManagement>
+			<plugins>
+				<plugin>
+					<artifactId>maven-jar-plugin</artifactId>
+					<configuration>
+						<archive>
+							<manifest>
+								<mainClass>fr.pizzeria.console.PizzeriaAdminConsoleApp</mainClass>
+							</manifest>
+						</archive>
+					</configuration>
+				</plugin>
+
+				<plugin>
+					<groupId>org.apache.maven.plugins</groupId>
+					<artifactId>maven-shade-plugin</artifactId>
+					<version>3.0.0</version>
+					<executions>
+						<execution>
+							<phase>package</phase>
+							<goals>
+								<goal>shade</goal>
+							</goals>
+						</execution>
+					</executions>
+				</plugin>
+			</plugins>
+		</pluginManagement>
+
+	</build>
+
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 	</properties>
@@ -20,33 +88,26 @@
 		<dependency>
 			<groupId>junit</groupId>
 			<artifactId>junit</artifactId>
-			<version>3.8.1</version>
-			<scope>test</scope>
 		</dependency>
 		<dependency>
 			<groupId>pizzeria-app</groupId>
 			<artifactId>pizzeria-dao-api</artifactId>
-			<version>1.0.0</version>
 		</dependency>
 		<dependency>
 			<groupId>pizzeria-app</groupId>
 			<artifactId>pizzeria-dao-fichier</artifactId>
-			<version>1.0.0</version>
 		</dependency>
 		<dependency>
 			<groupId>pizzeria-app</groupId>
 			<artifactId>pizzeria-dao-memoire</artifactId>
-			<version>1.0.0</version>
 		</dependency>
 		<dependency>
 			<groupId>pizzeria-app</groupId>
 			<artifactId>pizzeria-domain</artifactId>
-			<version>1.0.0</version>
 		</dependency>
 		<dependency>
-    <groupId>com.github.lalyos</groupId>
-    <artifactId>jfiglet</artifactId>
-    <version>0.0.3</version>
-</dependency>
+			<groupId>com.github.lalyos</groupId>
+			<artifactId>jfiglet</artifactId>
+		</dependency>
 	</dependencies>
 </project>
