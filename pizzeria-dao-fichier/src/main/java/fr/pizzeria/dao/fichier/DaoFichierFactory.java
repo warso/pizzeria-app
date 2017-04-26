@@ -18,5 +18,7 @@ public class DaoFichierFactory implements DaoFactory {
 		
 		return pizzaDao;
 	}
+	
+	
 
 }

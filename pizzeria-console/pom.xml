@@ -17,13 +17,9 @@
 
 		<profile>
 			<id>dev</id>
-			<activation>
-				<activeByDefault>true</activeByDefault>
-			</activation>
 			<properties>
-				<dao>fr.pizzeria.dao.memoire.PizzaDaoImp</dao>
+				<dao>fr.pizzeria.dao.memoire.DaoMemoireFactory</dao>
 			</properties>
-
 			<dependencies>
 				<dependency>
 					<groupId>pizzeria-app</groupId>
@@ -32,7 +28,23 @@
 				</dependency>
 			</dependencies>
 		</profile>
-
+		<profile>
+			<id>jdbc</id>
+			<activation>
+				<activeByDefault>true</activeByDefault>
+			</activation>
+			<properties>
+				<dao>fr.pizzeria.jdbc.DaoJdbcFactory</dao>
+			</properties>
+			<dependencies>
+				<dependency>
+					<groupId>pizzeria-dao-jdbc</groupId>
+					<artifactId>pizzeria-dao-jdbc</artifactId>
+					<version>0.0.1-SNAPSHOT</version>
+					<scope>runtime</scope>
+				</dependency>
+			</dependencies>
+		</profile>
 		<profile>
 			<id>prod</id>
 			<properties>
@@ -108,6 +120,11 @@
 		<dependency>
 			<groupId>com.github.lalyos</groupId>
 			<artifactId>jfiglet</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>mysql</groupId>
+			<artifactId>mysql-connector-java</artifactId>
+			<version>5.1.41</version>
 		</dependency>
 	</dependencies>
 </project>

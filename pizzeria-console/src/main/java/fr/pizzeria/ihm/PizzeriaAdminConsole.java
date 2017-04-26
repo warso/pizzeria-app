@@ -42,6 +42,7 @@ public class PizzeriaAdminConsole {
 			System.out.println("2. Ajouter une nouvelle pizza");
 			System.out.println("3. Mettre à jour une pizza");
 			System.out.println("4. Supprimer une pizza");
+			System.out.println("5. Import de données");
 			System.out.println("99. Sortir");
 			Scanner questionUser = new Scanner(System.in);
 			questionUser.useLocale(Locale.US);
@@ -50,7 +51,7 @@ public class PizzeriaAdminConsole {
 			/** Lister les pizzas */
 
 			if (choixMenu == 1) {
-				ListerPizzaOptionMenu liste = new ListerPizzaOptionMenu(unObjet);
+				ListerPizzaOptionMenu liste = new ListerPizzaOptionMenu(unObjet.getPizzaDao());
 				liste.execute();
 			}
 
@@ -58,7 +59,7 @@ public class PizzeriaAdminConsole {
 
 			if (choixMenu == 2) {
 
-				NouvellePizzaOptionMenu ajout = new NouvellePizzaOptionMenu(unObjet);
+				NouvellePizzaOptionMenu ajout = new NouvellePizzaOptionMenu(unObjet.getPizzaDao());
 				try {
 					ajout.execute();
 				} catch (SavePizzaException e) {
@@ -70,7 +71,7 @@ public class PizzeriaAdminConsole {
 
 			if (choixMenu == 3) {
 
-				ModifierPizzaOptionMenu modif = new ModifierPizzaOptionMenu(unObjet);
+				ModifierPizzaOptionMenu modif = new ModifierPizzaOptionMenu(unObjet.getPizzaDao());
 				try {
 					modif.execute();
 				} catch (UpdatePizzaException e) {
@@ -82,12 +83,19 @@ public class PizzeriaAdminConsole {
 
 			if (choixMenu == 4) {
 
-				SupprimerPizzaOptionMenu supp = new SupprimerPizzaOptionMenu(unObjet);
+				SupprimerPizzaOptionMenu supp = new SupprimerPizzaOptionMenu(unObjet.getPizzaDao());
 				try {
 					supp.execute();
 				} catch (DeletePizzaException e) {
 					System.out.println(e.getMessage());
 				}
+			}
+			
+			if ((choixMenu == 5) && (value.equals("fr.pizzeria.jdbc.DaoJdbcFactory"))){
+				
+			}
+			else{
+				
 			}
 		}
 		if (choixMenu == 99) {
