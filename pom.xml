@@ -79,6 +79,12 @@
 				<artifactId>pizzeria-dao-fichier</artifactId>
 				<version>${project.version}</version>
 			</dependency>
+			
+			<dependency>
+				<groupId>${project.groupId}</groupId>
+				<artifactId>pizzeria-dao-jdbc</artifactId>
+				<version>${project.version}</version>
+			</dependency>
 
 			<dependency>
 				<groupId>${project.groupId}</groupId>

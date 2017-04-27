@@ -1,14 +1,12 @@
 package fr.pizzeria.jdbc;
 
-import java.math.BigDecimal;
-
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.ResourceBundle;
 
 import com.mysql.jdbc.PreparedStatement;
 
@@ -23,7 +21,11 @@ public class PizzaDaoJdbc implements IPizzaDao {
 
 	static {
 		try {
-			Class.forName("com.mysql.jdbc.Driver");
+//			ResourceBundle bundle = ResourceBundle.getBundle("jdbc");
+//			String value = bundle.getString("database");
+			
+			
+			Class.forName(ResourceBundle.getBundle("jdbc").getString("database"));
 		} catch (ClassNotFoundException e) {
 			throw new RuntimeException(e);
 		}
@@ -33,8 +35,7 @@ public class PizzaDaoJdbc implements IPizzaDao {
 
 		try {
 
-			Connection myConnection = DriverManager.getConnection("jdbc:mysql://localhost:3306/pizzeria?useSSL=false",
-					"root", "");
+			Connection myConnection = DriverManager.getConnection(ResourceBundle.getBundle("jdbc").getString("database.url"),ResourceBundle.getBundle("jdbc").getString("database.profil"),ResourceBundle.getBundle("jdbc").getString("database.password"));
 	
 			PreparedStatement selectPizza = (PreparedStatement) myConnection
 					.prepareStatement("SELECT * FROM pizza");
@@ -71,8 +72,7 @@ public class PizzaDaoJdbc implements IPizzaDao {
 	public boolean saveNewPizza(Pizza pizza) throws SavePizzaException {
 
 		try {
-			Connection myConnection = DriverManager.getConnection("jdbc:mysql://localhost:3306/pizzeria?useSSL=false",
-					"root", "");
+			Connection myConnection = DriverManager.getConnection(ResourceBundle.getBundle("jdbc").getString("database.url"),ResourceBundle.getBundle("jdbc").getString("database.profil"),ResourceBundle.getBundle("jdbc").getString("database.password"));
 			myConnection.setAutoCommit(false);
 			PreparedStatement createPizza = (PreparedStatement) myConnection
 					.prepareStatement("INSERT INTO pizza(id,libelle,prix,code,categorie) VALUES(?,?,?,?,?)");
@@ -95,8 +95,7 @@ public class PizzaDaoJdbc implements IPizzaDao {
 	public boolean updatePizza(String code, Pizza pizza) throws UpdatePizzaException {
 
 		try {
-			Connection myConnection = DriverManager.getConnection("jdbc:mysql://localhost:3306/pizzeria?useSSL=false",
-					"root", "");
+			Connection myConnection = DriverManager.getConnection(ResourceBundle.getBundle("jdbc").getString("database.url"),ResourceBundle.getBundle("jdbc").getString("database.profil"),ResourceBundle.getBundle("jdbc").getString("database.password"));
 			PreparedStatement updatePizza = (PreparedStatement) myConnection
 					.prepareStatement("UPDATE pizza SET libelle=?, prix=?,code=?,categorie=? WHERE code=?");
 
@@ -119,8 +118,7 @@ public class PizzaDaoJdbc implements IPizzaDao {
 	public boolean deletePizza(String code) throws DeletePizzaException {
 
 		try {
-			Connection myConnection = DriverManager.getConnection("jdbc:mysql://localhost:3306/pizzeria?useSSL=false",
-					"root", "");
+			Connection myConnection = DriverManager.getConnection(ResourceBundle.getBundle("jdbc").getString("database.url"),ResourceBundle.getBundle("jdbc").getString("database.profil"),ResourceBundle.getBundle("jdbc").getString("database.password"));
 			PreparedStatement deletePizza = (PreparedStatement) myConnection
 					.prepareStatement("DELETE FROM pizza WHERE code=?");
 
