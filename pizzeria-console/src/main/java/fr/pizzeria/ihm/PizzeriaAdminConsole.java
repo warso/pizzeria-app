@@ -1,15 +1,15 @@
 package fr.pizzeria.ihm;
 
-import java.util.List;
 import java.util.Locale;
 import java.util.ResourceBundle;
 import java.util.Scanner;
+import java.util.logging.Level;
+
+import javax.persistence.Persistence;
 
 import com.github.lalyos.jfiglet.FigletFont;
 
 import fr.pizzeria.dao.DaoFactory;
-import fr.pizzeria.dao.fichier.DaoFichierFactory;
-import fr.pizzeria.dao.IPizzaDao;
 import fr.pizzeria.dao.DeletePizzaException;
 import fr.pizzeria.dao.SavePizzaException;
 import fr.pizzeria.dao.UpdatePizzaException;
@@ -17,18 +17,20 @@ import fr.pizzeria.ihm.ListerPizzaOptionMenu;
 import fr.pizzeria.ihm.ModifierPizzaOptionMenu;
 import fr.pizzeria.ihm.NouvellePizzaOptionMenu;
 import fr.pizzeria.ihm.SupprimerPizzaOptionMenu;
-import fr.pizzeria.model.Pizza;
 
 public class PizzeriaAdminConsole {
 
-	public static void main(String[] args) throws ClassNotFoundException, InstantiationException, IllegalAccessException {
+	public static void main(String[] args)
+			throws ClassNotFoundException, InstantiationException, IllegalAccessException {
+
+		java.util.logging.Logger.getLogger("org.hibernate").setLevel(Level.SEVERE);
 
 		ResourceBundle bundle = ResourceBundle.getBundle("application");
 		String value = bundle.getString("dao.impl");
-		
+
 		String uneClasse = value;
 		Class<?> maClasse = Class.forName(uneClasse);
-		
+
 		DaoFactory unObjet = (DaoFactory) maClasse.newInstance();
 
 		int choixMenu = 0;
@@ -90,12 +92,11 @@ public class PizzeriaAdminConsole {
 					System.out.println(e.getMessage());
 				}
 			}
-			
-			if ((choixMenu == 5) && (value.equals("fr.pizzeria.jdbc.DaoJdbcFactory"))){
-				
-			}
-			else{
-				
+
+			if ((choixMenu == 5) && (value.equals("fr.pizzeria.jdbc.DaoJdbcFactory"))) {
+
+			} else {
+
 			}
 		}
 		if (choixMenu == 99) {

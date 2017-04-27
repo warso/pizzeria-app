@@ -52,6 +52,7 @@ public class PizzaDaoJdbc implements IPizzaDao {
 				}
 				resultats.close();
 				selectPizza.close();
+				myConnection.close();
 			return pizzaTab;
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -80,12 +81,13 @@ public class PizzaDaoJdbc implements IPizzaDao {
 			createPizza.setString(2, pizza.getNom());
 			createPizza.setDouble(3, pizza.getPrix());
 			createPizza.setString(4, pizza.getCode());
-			createPizza.setString(5, pizza.cat.toString());
+			createPizza.setString(5, pizza.getCat().toString());
 			createPizza.executeUpdate();
 			
 			myConnection.commit();
 			
 			createPizza.close();
+			myConnection.close();
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
@@ -102,11 +104,12 @@ public class PizzaDaoJdbc implements IPizzaDao {
 			updatePizza.setString(1, pizza.getNom());
 			updatePizza.setDouble(2, pizza.getPrix());
 			updatePizza.setString(3, pizza.getCode());
-			updatePizza.setString(4, pizza.cat.toString());
+			updatePizza.setString(4, pizza.getCat().toString());
 			updatePizza.setString(5, code);
 			updatePizza.executeUpdate();
 			
 			updatePizza.close();
+			myConnection.close();
 
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -126,6 +129,7 @@ public class PizzaDaoJdbc implements IPizzaDao {
 			deletePizza.executeUpdate();
 			
 			deletePizza.close();
+			myConnection.close();
 
 		} catch (
 

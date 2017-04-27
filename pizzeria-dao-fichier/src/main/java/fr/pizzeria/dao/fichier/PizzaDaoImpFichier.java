@@ -75,7 +75,7 @@ public class PizzaDaoImpFichier implements IPizzaDao {
 		String pathNewFile = DaoFichierFactory.getDataDir() + "/" + pizza.getCode() + ".txt";
 		try (BufferedWriter writer = Files.newBufferedWriter(FileSystems.getDefault().getPath(pathNewFile))) {
 
-			String chaine = pizza.getNom() + ";" + pizza.getPrix() + ";" + pizza.cat;
+			String chaine = pizza.getNom() + ";" + pizza.getPrix() + ";" + pizza.getCat();
 			writer.write(chaine, 0, chaine.length());
 		} catch (IOException x) {
 			throw new StockageException(x);

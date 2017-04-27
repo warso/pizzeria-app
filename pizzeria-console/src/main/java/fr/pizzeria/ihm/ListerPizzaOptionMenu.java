@@ -19,7 +19,7 @@ public class ListerPizzaOptionMenu extends OptionMenu {
 		Iterator<Pizza> iterator = pizza.iterator();
 		while (iterator.hasNext()) {
 			Pizza pizza1 = iterator.next();
-			System.out.println(pizza1.getCode() + "->" + " " + pizza1.getNom() + " " + "(" + pizza1.getPrix() + ")" + " " + pizza1.cat);
+			System.out.println(pizza1.getCode() + "->" + " " + pizza1.getNom() + " " + "(" + pizza1.getPrix() + ")" + " " + pizza1.getCat());
 		}
 			return pizza;
 	
